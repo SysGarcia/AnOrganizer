@@ -3,7 +3,11 @@ import os
 import json
 
 def get_files_extensions() -> list:
-    # This function retrieves all files on the Desktop and returns their names and extensions.
+    """
+    Retrieves a list of files from the Desktop, including their names and extensions.
+    Each item in the list is a dictionary with 'filename' and 'extension' as keys.
+    It scans specifically the Desktop directory of the user 'isaac'.
+    """
     files_w_extension = []
     all_files_desktop = os.listdir(r"C:\Users\isaac\Desktop")  # Lists all files on the Desktop.
     separated_files = list(all_files_desktop)
@@ -16,17 +20,24 @@ def get_files_extensions() -> list:
     return files_w_extension
 
 def get_folder_extensions() -> dict:
-    # Reads configuration from a JSON file to map file extensions to folder names.
+    """
+    Attempts to read a JSON configuration file to map file extensions to folder names.
+    If the file 'config.json' is not found, it logs an error and stops the program.
+    """
     try:
         with open('config.json', 'r') as f:
             data = json.load(f)
         return data
     except FileNotFoundError:
-        add_to_logs("Error[StoppedProgram]: Don't run it on VSC unless it is on the terminal where the program and the config.json file are.\n")
+        add_to_logs("Error[StoppedProgram]: 'config.json' not found in the current directory.\n")
         exit()
         
 def add_to_logs(info):
-    # Adds information to a log file with a timestamp.
+    """
+    Writes a log entry to 'Logs.txt' with a timestamp.
+    Each entry includes the UTC time and the provided information.
+    In case of an error during logging, it prints an error message.
+    """
     try: 
         log_file_path = os.path.join(os.path.dirname(__file__), 'Logs.txt')
         with open(log_file_path, 'a+') as f:
@@ -36,7 +47,10 @@ def add_to_logs(info):
         print(f"Error writing to log file: {e}")
 
 def create_folders() -> None:
-    # Creates folders on the Desktop based on the configuration file.
+    """
+    Creates folders on the Desktop based on the configuration from 'config.json'.
+    The folders are named according to the keys in the configuration file.
+    """
     folder_extensions = get_folder_extensions()
     for folders in folder_extensions:
         foldername_create = r"C:\\Users\\isaac\\Desktop\\{}".format(folders)
@@ -44,7 +58,12 @@ def create_folders() -> None:
             os.makedirs(foldername_create)
             
 def relocating_files_folders():
-    # Relocates files on the Desktop to the appropriate folders based on their extensions.
+    """
+    Relocates files from the Desktop to the appropriate folders based on their extensions.
+    It uses the mappings from 'config.json' to determine the destination folders.
+    The script file itself is skipped to avoid relocating the script during execution.
+    Logs are written in case of errors or unhandled file extensions.
+    """
     script_name = os.path.basename(__file__) 
     files_to_see = get_files_extensions()
     folder_extension = get_folder_extensions()
@@ -70,7 +89,10 @@ def relocating_files_folders():
             add_to_logs("No file extension for "+ files["filename"]+ files["extension"]+" if you want this extension, modify the config file!\n")
          
 def main() -> None:
-    # Main function to create folders and relocate files.
+    """
+    The main function that orchestrates the folder creation and file relocation.
+    It first creates folders as per 'config.json' and then relocates files accordingly.
+    """
     create_folders()
     relocating_files_folders()
 
