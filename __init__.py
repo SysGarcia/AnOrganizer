@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 import json
 
@@ -12,13 +13,25 @@ def get_files_extensions() -> list:
         file_name = file[0]
         extension = file[1]
         files_w_extension.append(dict(filename=file_name,extension=extension.lower()))
-    print(files_w_extension)
     return files_w_extension
 
 def get_folder_extensions() -> dict:
-    with open('config.json', 'r') as f:
-        data = json.load(f)
-    return data
+    try:
+        with open('config.json', 'r') as f:
+            data = json.load(f)
+        return data
+    except FileNotFoundError:
+        add_to_logs("Error[StoppedProgram]: Don't run it on VSC unless it is on the terminal where the program and the config.json file are.\n")
+        exit()
+        
+def add_to_logs(info):
+    try: 
+        log_file_path = os.path.join(os.path.dirname(__file__), 'Logs.txt')
+        with open(log_file_path, 'a+') as f:
+            timestamp = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+            f.write(f"{timestamp} - {info}")
+    except Exception as e:
+        print(f"Error writing to log file: {e}")
 
 def create_folders() -> None:
     folder_extensions = get_folder_extensions()
@@ -47,15 +60,15 @@ def relocating_files_folders():
                 else:
                     os.rename(source, destination)
             except FileExistsError:
-                print(f"File {files['filename']}{files['extension']} already exists in {get_key}. Skipping.")
+                add_to_logs(f"File {files['filename']}{files['extension']} already exists in {get_key}. Skipping.\n")
             except Exception as e:
-                print(f"Error moving {files['filename']}{files['extension']}: {e}")
+                add_to_logs(f"Error moving {files['filename']}{files['extension']}: {e}\n")
         else:
-            print("no file extension for", files["filename"], files["extension"])
-
+            add_to_logs("no file extension for"+ files["filename"]+ files["extension"]+" if you want this extension, modify the config file!\n")
+         
 def main() -> None:
     create_folders()
     relocating_files_folders()
-    
+
 if __name__ == "__main__":
     main()
