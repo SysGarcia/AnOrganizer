@@ -1,0 +1,16 @@
+{   
+    "Videos(mp4)": ".mp4",
+    "PythonScripts": ".py",
+    "RandomFolders": "",
+    "Apps": ".lnk",
+    "HTML": ".html",
+    "PDF": ".pdf",
+    "Executables": ".exe",
+    "WordDocs": ".docx",
+    "Typescript": ".tsx",
+    "ZIP": ".zip",
+    "Text":".txt",
+    "Json-data":".json",
+    "JPG-images":".jpg",
+    "Url's":".url"
+    }
