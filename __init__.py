@@ -68,26 +68,30 @@ def relocating_files_folders():
     files_to_see = get_files_extensions()
     folder_extension = get_folder_extensions()
 
-    for files in files_to_see:
-        if files["filename"] + files["extension"] == script_name:
+    for file in files_to_see:
+        if file["filename"] + file["extension"] == script_name:
             continue  # Skips the script file itself.
 
-        if files["extension"] in folder_extension.values():
-            get_key = list(folder_extension.keys())[list(folder_extension.values()).index(files["extension"])]
+        destination_folder = None
+        for folder, extensions in folder_extension.items():
+            if file["extension"] in extensions:
+                destination_folder = folder
+                break
 
-            source = r"C:\\Users\\isaac\\Desktop\\" + files["filename"] + files["extension"]
-            destination = r"C:\\Users\\isaac\\Desktop\\" + get_key + "\\" + files["filename"] + files["extension"]
+        if destination_folder:
+            source = os.path.join(r"C:\Users\isaac\Desktop", file["filename"] + file["extension"])
+            destination = os.path.join(r"C:\Users\isaac\Desktop", destination_folder, file["filename"] + file["extension"])
             try:
-                if files["filename"]+files["extension"] not in folder_extension.keys():
+                if file["filename"]+file["extension"] not in folder_extension.keys():
                     os.rename(source, destination)  # Moves the file to the appropriate folder.
                 # If the file is a folder itself, do nothing.
             except FileExistsError:
-                add_to_logs(f"File {files['filename']}{files['extension']} already exists in {get_key}. Skipping.\n")
+                add_to_logs(f"File {file['filename']}{file['extension']} already exists in {destination_folder}. Skipping.\n")
             except Exception as e:
-                add_to_logs(f"Error moving {files['filename']}{files['extension']}: {e}\n")
+                add_to_logs(f"Error moving {file['filename']}{file['extension']}: {e}\n")
         else:
-            add_to_logs("No file extension for "+ files["filename"]+ files["extension"]+" if you want this extension, modify the config file!\n")
-         
+            add_to_logs(f"No file extension for {file['filename']}{file['extension']} in config file! Modify the config file if this extension is desired.\n")
+
 def main() -> None:
     """
     The main function that orchestrates the folder creation and file relocation.
