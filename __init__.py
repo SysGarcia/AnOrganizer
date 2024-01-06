@@ -1,8 +1,17 @@
+"""
+Import all the neccesities.
+"""
+
 from datetime import datetime
 import os
 import json
 
 def get_files_extensions() -> list:
+    """
+    This function is used to get all the files names and extension on the User's Desktop.
+    As you can see, it returns a list object which as the files name, with the extension.
+    The extension has .lower() to cause less trouble (just in case)
+    """
     files_w_extension = []
     
     all_files_desktop = os.listdir(r"C:\Users\isaac\Desktop")
@@ -16,6 +25,10 @@ def get_files_extensions() -> list:
     return files_w_extension
 
 def get_folder_extensions() -> dict:
+    """
+    This function searches the config.json file and returns all the data from the inside as a dict type.
+    Error handling is added just in case the File doesn't exist. (This is why json is imported at the start.
+    """
     try:
         with open('config.json', 'r') as f:
             data = json.load(f)
@@ -25,6 +38,9 @@ def get_folder_extensions() -> dict:
         exit()
         
 def add_to_logs(info):
+    """
+    This function ...
+    """
     try: 
         log_file_path = os.path.join(os.path.dirname(__file__), 'Logs.txt')
         with open(log_file_path, 'a+') as f:
