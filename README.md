@@ -1,4 +1,4 @@
-# Desktop File Organizer
+# AnOrganizer: A Python Desktop File Organizer
 ![ezgif-2-b7968d1b9a](https://github.com/Wolfuliam/AnOrganizer/assets/147284006/7d23e707-8243-44c9-a676-e7288103e4ad)
 
 ## Description
