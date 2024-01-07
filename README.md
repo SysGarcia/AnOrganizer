@@ -1,20 +1,20 @@
-Desktop File Organizer
-Description
+#Desktop File Organizer
+##Description
 
 This Desktop File Organizer script automatically sorts files on your desktop into designated folders based on their file extensions. It simplifies desktop management and keeps your workspace clean and organized.
-Features
+##Features
 
     Automatic Sorting: Moves files from the desktop into categorized folders.
     Customizable Mappings: Define your own file extension to folder mappings through a JSON configuration file.
     Logging: Records operations and errors in a log file for review.
     Skips Running Script: The script skips itself to avoid moving while it's running.
 
-Requirements
+##Requirements
 
     Python 3.x
     Windows Operating System (The script uses Windows path formats)
 
-Setup and Configuration
+##Setup and Configuration
 
     Clone/Download the Repository
         Clone this repository to your local machine or simply download the script and configuration files.
@@ -39,7 +39,7 @@ Setup and Configuration
     Log File
         Logs.txt will be created in the same directory as the script to log operations and errors.
 
-Usage
+##Usage
 
     Run the Script
         Execute the script. You can double-click it or run it from a command line/terminal.
@@ -49,20 +49,20 @@ Usage
     Check Logs
         Open Logs.txt to review operations and error messages.
 
-Customization
+##Customization
 
     Edit config.json to change how files are sorted.
     Ensure that file paths in the script match your system configuration (especially if you're not using Windows).
 
-Limitations
+##Limitations
 
     The script is designed for Windows paths and might need adjustments for other operating systems.
     It does not handle duplicate files; if a file with the same name exists in the destination, an error will be logged.
 
-Contributing
+##Contributing
 
     Contributions to improve the script or add new features are welcome. Please submit a pull request or open an issue to discuss your ideas.
 
-License
+##License
 
     Add your licensing information here (if applicable).
