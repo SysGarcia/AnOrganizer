@@ -1,4 +1,5 @@
 # Desktop File Organizer
+![ezgif-2-b7968d1b9a](https://github.com/Wolfuliam/AnOrganizer/assets/147284006/7d23e707-8243-44c9-a676-e7288103e4ad)
 
 ## Description
 This Desktop File Organizer script automatically sorts files on your desktop into designated folders based on their file extensions. It simplifies desktop management and keeps your workspace clean and organized.
