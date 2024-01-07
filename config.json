@@ -1,5 +1,5 @@
 {
-    "Videos": [".mp4", ".mov", ".avi"],
+    "Videos": [".mp4", ".mov", ".avi",".mkv"],
     "Images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff"],
     "PythonScripts": [".py"],
     "RandomFolders": [""],
